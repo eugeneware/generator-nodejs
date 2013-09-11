@@ -55,7 +55,7 @@ NodejsGenerator.prototype.askFor = function askFor() {
       type: 'input',
       name: 'githubName',
       message: 'Your github username',
-      default: (config.github && config.github.user) || null
+      default: (config.github && config.github.user) || ''
     },
     {
       type: 'input',
@@ -74,6 +74,7 @@ NodejsGenerator.prototype.askFor = function askFor() {
     this.keywords = props.keywords;
     this.githubName = props.githubName;
     this.author = props.author;
+    console.log('author', props.author);
     this.copyrightName = props.author.replace(/<[^>]*?>/gm, '').trim();
 
     this.dequote = function (str) {

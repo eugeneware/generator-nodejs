@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "yeoman-generator": "~0.13.0",
-    "git-config": "0.0.2"
+    "git-config": "0.0.3"
   },
   "devDependencies": {
     "mocha": "~1.12.0"
