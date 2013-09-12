@@ -18,6 +18,8 @@ Finally, initiate the generator:
 $ yo nodejs
 ```
 
+![generator-nodejs screenshot](https://raw.github.com/eugeneware/generator-nodejs/master/screenshot.png)
+
 This generator will install the following files:
 
 * package-json - initialized with the answers to all your questions.
