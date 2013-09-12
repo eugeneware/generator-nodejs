@@ -74,14 +74,11 @@ NodejsGenerator.prototype.askFor = function askFor() {
     this.keywords = props.keywords;
     this.githubName = props.githubName;
     this.author = props.author;
-    console.log('author', props.author);
     this.copyrightName = props.author.replace(/<[^>]*?>/gm, '').trim();
 
     this.dequote = function (str) {
       return str.replace(/\"/gm, '\\"');
     };
-
-    console.log(props);
 
     cb();
   }.bind(this));
