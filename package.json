@@ -1,6 +1,6 @@
 {
   "name": "generator-nodejs",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Yeoman generator for node.js modules",
   "keywords": [
     "yeoman-generator",
