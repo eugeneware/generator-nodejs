@@ -13,6 +13,9 @@
   "keywords": <%= JSON.stringify(keywords) %>,
   "author": "<%= dequote(author) %>",
   "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/<%= githubName %>/<%= moduleName %>/issues"
+  },
   "dependencies": {},
   "devDependencies": {
     "expect.js": "~0.2.0",
