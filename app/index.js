@@ -62,7 +62,7 @@ NodejsGenerator.prototype.askFor = function askFor() {
       name: 'author',
       message: 'Author name',
       default:
-        ((config.user && config.user.name) || '') + 
+        ((config.user && config.user.name) || '') +
         (' <' + ((config.user && config.user.email) || '') + '>')
     }
   ];
@@ -98,5 +98,5 @@ NodejsGenerator.prototype.mocha = function mocha() {
   this.mkdir('test');
   this.mkdir('test/fixtures');
   this.copy('lib.js', 'index.js');
-  this.template('test.js', 'test/index.js');
+  this.template('test.js', 'test/index.spec.js');
 };

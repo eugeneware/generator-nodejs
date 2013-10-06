@@ -35,5 +35,5 @@ This generator will install the following files:
 * LICENSE - BSD-3-Clause initialized with your details.
 * README.md - Initialized with your details and travis-ci badges.
 * index.js - Initial library file
-* test/index.js - First mocha unit test
+* test/index.spec.js - First mocha unit test
 
