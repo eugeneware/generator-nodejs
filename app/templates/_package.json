@@ -4,7 +4,22 @@
   "description": "<%= dequote(moduleDesc) %>",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/grunt ci"
+    "test": "<%
+      if (useGrunt) {
+        print('node_modules/.bin/grunt ci');
+      } else {
+        switch (testFramework) {
+          case 'mocha':
+            print('node_modules/.bin/mocha');
+            break;
+
+          case 'redtape':
+          case 'tape':
+            print('node_modules/.bin/tape test/*.js');
+            break;
+        }
+      }
+    %>"
   },
   "repository": {
     "type": "git",
@@ -18,12 +33,53 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "expect.js": "~0.2.0",
+<%
+    switch (assertionLibrary) {
+      case 'expect.js':
+        print('    "expect.js": "~0.2.0",');
+        break;
+
+      case 'chai':
+        print('    "chai": "~1.8.1",');
+        break;
+
+      default:
+        break;
+    }
+
+    if (useGrunt) {
+%>
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-watch": "~0.5.3",
     "grunt": "~0.4.1",
-    "grunt-mocha-cli": "~1.1.0",
+<%
+      switch (testFramework) {
+        case 'mocha':
+          print('    "grunt-mocha-cli": "~1.1.0",');
+          break;
+
+        case 'redtape':
+          print('    "redtape": "~0.1.0",\n');
+        case 'tape':
+          print('    "tape": "~2.3.2",\n');
+          print('    "grunt-tape": "~0.0.1",');
+          break;
+      }%>
     "grunt-complexity": "~0.1.3",
-    "grunt-cli": "~0.1.9"
+    "grunt-cli": "~0.1.9"<%
+      } else {
+        switch (testFramework) {
+          case 'mocha':
+            print('    "mocha": "~1.17.0"');
+            break;
+
+          case 'redtape':
+            print('    "redtape": "~0.1.0",\n');
+
+          case 'tape':
+            print('    "tape": "~2.3.2"');
+            break;
+        }
+      }%>
   }
 }

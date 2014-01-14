@@ -22,14 +22,38 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc'
       }
-    },
+    },<%
+      switch (testFramework) {
+        case 'mocha':
+%>
     mochacli: {
       all: ['test/**/*.js'],
       options: {
         reporter: 'spec',
         ui: 'tdd'
       }
-    },
+    },<%
+          break;
+
+        case 'redtape':
+        case 'tape':
+%>
+    tape: {
+      ci: {
+        files: { src: ['./test/**/*.js'] },
+        options: {
+          pretty: false
+        }
+      },
+      pretty: {
+        files: { src: ['./test/**/*.js'] },
+        options: {
+          pretty: true
+        }
+      }
+    },<%
+          break;
+      } %>
     watch: {
       js: {
         files: ['**/*.js', '!node_modules/**/*.js'],
@@ -44,9 +68,22 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-complexity');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-mocha-cli');
-
+  <%
+    switch (testFramework) {
+      case 'mocha':
+  %>grunt.loadNpmTasks('grunt-mocha-cli');
   grunt.registerTask('test', ['complexity', 'jshint', 'mochacli', 'watch']);
   grunt.registerTask('ci', ['complexity', 'jshint', 'mochacli']);
-  grunt.registerTask('default', ['test']);
+  grunt.registerTask('default', ['test']);<%
+        break;
+
+      case 'redtape':
+      case 'tape':
+  %>grunt.loadNpmTasks('grunt-tape');
+  grunt.registerTask('test', ['complexity', 'jshint', 'tape:pretty', 'watch']);
+  grunt.registerTask('ci', ['complexity', 'jshint', 'tape:ci']);
+  grunt.registerTask('default', ['test']);<%
+        break;
+    }
+  %>
 };
