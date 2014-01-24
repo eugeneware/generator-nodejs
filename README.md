@@ -18,7 +18,7 @@ Finally, initiate the generator:
 $ yo nodejs
 ```
 
-![generator-nodejs screenshot](https://raw.github.com/eugeneware/generator-nodejs/master/screenshot.png)
+![generator-nodejs screenshot](https://raw.github.com/eugeneware/generator-nodejs/gh-pages/generator.gif)
 
 This generator now supports [tape](https://github.com/substack/tape),
 [mocha](https://github.com/visionmedia/mocha), and
