@@ -5,15 +5,16 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 describe('nodejs generator', function () {
+  var tempPath = path.join(__dirname, '..', 'temp');
   beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+    helpers.testDirectory(tempPath, function (err) {
       if (err) {
         return done(err);
       }
 
       this.app = helpers.createGenerator('nodejs:app', [
-        '../../app'
-      ]);
+        '../app'
+      ], [], { 'skip-install': true });
       done();
     }.bind(this));
   });
