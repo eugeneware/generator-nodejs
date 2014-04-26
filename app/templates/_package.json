@@ -1,6 +1,6 @@
 {
   "name": "<%= moduleName %>",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "<%= dequote(moduleDesc) %>",
   "main": "index.js",
   "scripts": {
