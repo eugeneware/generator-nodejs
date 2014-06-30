@@ -42,7 +42,10 @@ NodejsGenerator.prototype.askFor = function askFor() {
       message: 'Module keywords',
       filter:
         function (value) {
-          return value.split(',')
+          if (typeof value === 'string') {
+            value = value.split(',');
+          };
+          return value
             .map(function (val) {
               return val.trim();
             })
