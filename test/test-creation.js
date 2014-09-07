@@ -40,7 +40,9 @@ describe('nodejs generator', function () {
       'testFramework': 'mocha',
       'assertionLibrary': 'expect.js',
       'githubName': 'octocat',
-      'author': 'Octo Cat <main@mail.com>'
+      'author': 'Octo Cat <main@mail.com>',
+	  'dependencies': ['express','underscore'],
+      'devDependencies': ['should','validator']
     });
 
     this.app.run({}, function () {
@@ -74,7 +76,9 @@ describe('nodejs generator', function () {
       'testFramework': 'tape',
       'assertionLibrary': 'none',
       'githubName': 'octocat',
-      'author': 'Octo Cat <main@mail.com>'
+      'author': 'Octo Cat <main@mail.com>',
+	  'dependencies': ['express','underscore'],
+      'devDependencies': ['should','validator']
     });
 
     this.app.run({}, function () {
