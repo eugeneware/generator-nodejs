@@ -36,11 +36,11 @@
 <%
     switch (assertionLibrary) {
       case 'expect.js':
-        print('    "expect.js": "~0.2.0",');
+        print('    "expect.js": "~0.3.0",');
         break;
 
       case 'chai':
-        print('    "chai": "~1.8.1",');
+        print('    "chai": "~1.10.0",');
         break;
 
       default:
@@ -70,7 +70,7 @@
       } else {
         switch (testFramework) {
           case 'mocha':
-            print('    "mocha": "~1.17.0"');
+            print('    "mocha": "~2.1.0"');
             break;
 
           case 'redtape':
