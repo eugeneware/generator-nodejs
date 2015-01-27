@@ -31,9 +31,22 @@
   "bugs": {
     "url": "https://github.com/<%= githubName %>/<%= moduleName %>/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+<%
+      var lastItem = dependencies.length - 1;
+      for (i = 0; i < dependencies.length ; i++){
+        if( i === lastItem){
+          print('    "' + dependencies[i] + '": "*"')
+        } else {
+          print('    "' + dependencies[i] + '": "*",\n')
+        }
+      }%>
+    },
   "devDependencies": {
 <%
+    devDependencies.forEach(function(item){
+      print('    "' + item + '": "*",\n')
+    });
     switch (assertionLibrary) {
       case 'expect.js':
         print('    "expect.js": "~0.3.0",');

@@ -87,7 +87,43 @@ NodejsGenerator.prototype.askFor = function askFor() {
       default:
         ((config.user && config.user.name) || '') + 
         (' <' + ((config.user && config.user.email) || '') + '>')
-    }
+    },
+    {
+      type: 'input',
+      name: 'dependencies',
+      message: 'Package Dependencies (comma-separated)',
+      filter:
+        function (value) {
+          if (typeof value === 'string') {
+            value = value.split(',');
+          }
+          return value
+            .map(function (val) {
+              return val.trim();
+            })
+            .filter(function (val) {
+              return val.length > 0;
+            })
+        }
+    },    
+    {
+      type: 'input',
+      name: 'devDependencies',
+      message: 'Dev Dependencies (comma-separated)',
+      filter:
+        function (value) {
+          if (typeof value === 'string') {
+            value = value.split(',');
+          }
+          return value
+            .map(function (val) {
+              return val.trim();
+            })
+            .filter(function (val) {
+              return val.length > 0;
+            })
+        }
+    }    
   ];
 
   this.prompt(prompts, function (props) {
@@ -101,6 +137,8 @@ NodejsGenerator.prototype.askFor = function askFor() {
     this.testFramework = props.testFramework;
     this.assertionLibrary = props.assertionLibrary;
     this.useGrunt = props.useGrunt;
+    this.dependencies = props.dependencies;
+    this.devDependencies = props.devDependencies;
 
     this.dequote = function (str) {
       return str.replace(/\"/gm, '\\"');
