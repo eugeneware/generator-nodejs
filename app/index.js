@@ -4,7 +4,7 @@ var util = require('util'),
     yeoman = require('yeoman-generator'),
     wiring = require('html-wiring'),
     camelCase = require('lodash.camelcase'),
-    slug = require('slug'),
+    slug = require('lodash.kebabcase'),
     mkdirp = require('mkdirp').sync,
     gitconfig = require('git-config');
 
