@@ -1,20 +1,32 @@
+<% if (assertionLibrary === 'none') { -%>
+var assert = require('assert'),
+    <%- moduleVarName %> = require('..');
+
+describe('<%- moduleName %>', function() {
+  it('should say hello', function(done) {
+    assert.equal(<%- moduleVarName %>(), 'Hello, world');
+    done();
+  });
+});
+<% } else { -%>
 var expect = require('<%
+    var out = '';
     switch (assertionLibrary) {
       case 'chai':
-        print ("chai').expect");
+        out = "chai').expect";
         break;
 
       case 'expect.js':
       default:
-        print ("expect.js')");
+        out = "expect.js')";
         break;
     }
-%>,
-    <%= moduleVarName %> = require('..');
+%><%- out %>,
+    <%- moduleVarName %> = require('..');
 
-describe('<%= moduleName %>', function() {
+describe('<%- moduleName %>', function() {
   it('should say hello', function(done) {
-    expect(<%= moduleVarName %>()).to.equal('Hello, world');
+    expect(<%- moduleVarName %>()).to.equal('Hello, world');
     done();
   });
-});
+});<% } %>

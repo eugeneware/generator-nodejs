@@ -1,5 +1,5 @@
 var redtape = require('redtape'),
-    <%= moduleVarName %> = require('..');
+    <%- moduleVarName %> = require('..');
 
 var it = redtape({
   beforeEach: function (cb) {
@@ -11,6 +11,6 @@ var it = redtape({
 });
 
 it('should say hello', function(t) {
-  t.equal(<%= moduleVarName %>(), 'Hello, world');
+  t.equal(<%- moduleVarName %>(), 'Hello, world');
   t.end();
 });

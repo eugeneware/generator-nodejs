@@ -2,7 +2,8 @@
 'use strict';
 
 var path    = require('path');
-var helpers = require('yeoman-generator').test;
+var helpers = require('yeoman-test');
+var assert  = require('yeoman-assert');
 
 describe('nodejs generator', function () {
   var tempPath = path.join(__dirname, '..', 'temp');
@@ -43,12 +44,12 @@ describe('nodejs generator', function () {
       'author': 'Octo Cat <main@mail.com>'
     });
 
-    this.app.run({}, function () {
+    this.app.run(function () {
       expected.forEach(function (file) {
         if (typeof file === 'string') {
-          helpers.assertFile(file);
+          assert.file(file);
         } else if (Array.isArray(file)) {
-          helpers.assertFileContent(file[0], file[1]);
+          assert.fileContent(file[0], file[1]);
         }
       });
       done();
@@ -77,12 +78,12 @@ describe('nodejs generator', function () {
       'author': 'Octo Cat <main@mail.com>'
     });
 
-    this.app.run({}, function () {
+    this.app.run(function () {
       expected.forEach(function (file) {
         if (typeof file === 'string') {
-          helpers.assertFile(file);
+          assert.file(file);
         } else if (Array.isArray(file)) {
-          helpers.assertFileContent(file[0], file[1]);
+          assert.fileContent(file[0], file[1]);
         }
       });
       done();

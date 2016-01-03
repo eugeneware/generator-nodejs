@@ -1,85 +1,91 @@
 {
-  "name": "<%= moduleName %>",
+  "name": "<%- moduleName %>",
   "version": "1.0.0",
-  "description": "<%= dequote(moduleDesc) %>",
+  "description": "<%- dequote(moduleDesc) %>",
   "main": "index.js",
   "scripts": {
     "test": "<%
+      var out = '';
       if (useGrunt) {
-        print('node_modules/.bin/grunt ci');
+        out = 'node_modules/.bin/grunt ci';
       } else {
         switch (testFramework) {
           case 'mocha':
-            print('node_modules/.bin/mocha');
+            out = 'node_modules/.bin/mocha'
             break;
 
           case 'redtape':
           case 'tape':
-            print('node_modules/.bin/tape test/*.js');
+            out = 'node_modules/.bin/tape test/*.js';
             break;
         }
       }
-    %>"
+    %><%- out %>"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<%= githubName %>/<%= moduleName %>"
+    "url": "https://github.com/<%- githubName %>/<%- moduleName %>"
   },
-  "keywords": <%= JSON.stringify(keywords) %>,
-  "author": "<%= dequote(author) %>",
+  "keywords": <%- JSON.stringify(keywords) %>,
+  "author": "<%- dequote(author) %>",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/<%= githubName %>/<%= moduleName %>/issues"
+    "url": "https://github.com/<%- githubName %>/<%- moduleName %>/issues"
   },
   "dependencies": {},
   "devDependencies": {
 <%
+  out = '';
     switch (assertionLibrary) {
       case 'expect.js':
-        print('    "expect.js": "~0.3.0",');
+        out = '    "expect.js": "^0.3.1",';
         break;
 
       case 'chai':
-        print('    "chai": "~1.10.0",');
+        out = '    "chai": "^3.4.1",';
         break;
 
       default:
         break;
     }
-
+%><%- out %>
+<%
     if (useGrunt) {
 %>
-    "grunt-contrib-jshint": "~0.6.4",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt": "^0.4.5",
 <%
+      out = '';
       switch (testFramework) {
         case 'mocha':
-          print('    "grunt-mocha-cli": "~1.1.0",');
+          out = '    "grunt-mocha-cli": "^2.0.0",\n';
           break;
 
         case 'redtape':
-          print('    "redtape": "~0.1.0",\n');
+          out = '    "redtape": "^1.0.0",\n';
+
         case 'tape':
-          print('    "tape": "~2.3.2",\n');
-          print('    "grunt-tape": "~0.0.1",');
+          out += '    "tape": "^4.4.0",\n';
+          out += '    "grunt-tape": "^0.0.2",';
           break;
-      }%>
-    "grunt-complexity": "~0.1.3",
-    "grunt-cli": "~0.1.9"<%
+      }%><%- out %><% out = '' %>
+    "grunt-complexity": "^0.3.0",
+    "grunt-cli": "^0.1.13"<%
       } else {
+        out = '';
         switch (testFramework) {
           case 'mocha':
-            print('    "mocha": "~2.1.0"');
+            out = '    "mocha": "^2.3.4"';
             break;
 
           case 'redtape':
-            print('    "redtape": "~0.1.0",\n');
+            out = '    "redtape": "^1.0.0",\n';
 
           case 'tape':
-            print('    "tape": "~2.3.2"');
+            out += '    "tape": "^4.4.0"';
             break;
         }
-      }%>
+      }%><%- out %>
   }
 }

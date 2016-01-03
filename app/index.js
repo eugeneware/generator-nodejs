@@ -2,25 +2,29 @@
 var util = require('util'),
     path = require('path'),
     yeoman = require('yeoman-generator'),
+    wiring = require('html-wiring'),
+    camelCase = require('lodash.camelcase'),
+    slug = require('slug'),
+    mkdirp = require('mkdirp').sync,
     gitconfig = require('git-config');
 
 var NodejsGenerator = module.exports = function NodejsGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
-
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
-  });
-
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  yeoman.Base.apply(this, arguments);
+  this.pkg = JSON.parse(wiring.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(NodejsGenerator, yeoman.generators.Base);
+util.inherits(NodejsGenerator, yeoman.Base);
+
+NodejsGenerator.prototype.install = function () {
+  if (!this.options['skip-install']) {
+    this.installDependencies({
+      bower: false
+    });
+  }
+};
 
 NodejsGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
-
-  // have Yeoman greet the user.
-  console.log(this.yeoman);
 
   var config = gitconfig.sync();
 
@@ -85,14 +89,14 @@ NodejsGenerator.prototype.askFor = function askFor() {
       name: 'author',
       message: 'Author name',
       default:
-        ((config.user && config.user.name) || '') + 
+        ((config.user && config.user.name) || '') +
         (' <' + ((config.user && config.user.email) || '') + '>')
     }
   ];
 
   this.prompt(prompts, function (props) {
-    this.moduleName = this._.slugify(props.moduleName);
-    this.moduleVarName = this._.camelize(props.moduleName);
+    this.moduleName = slug(props.moduleName);
+    this.moduleVarName = camelCase(props.moduleName);
     this.moduleDesc = props.moduleDesc;
     this.keywords = props.keywords;
     this.githubName = props.githubName;
@@ -124,8 +128,8 @@ NodejsGenerator.prototype.build = function build() {
 };
 
 NodejsGenerator.prototype.testFrameworks = function mocha() {
-  this.mkdir('test');
-  this.mkdir('test/fixtures');
+  mkdirp('test');
+  mkdirp('test/fixtures');
   this.copy('lib.js', 'index.js');
 
   switch (this.testFramework) {
